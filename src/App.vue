@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h4>{{ $store.state.message }}</h4>
     <!-- preventでpostする事を防ぐ -->
     <form v-on:submit.prevent="sendTodo">
       <input v-model="todo">
@@ -16,6 +17,12 @@
         </span>
       </li>
     </ul>
+    <div>
+      <h4>Count</h4>
+      {{ count }}
+      <button @click="increment">+</button>
+      <button @click="decrement">-</button>
+    </div>
   </div>
 </template>
 
@@ -42,6 +49,17 @@ export default {
       } else {
         item.status = 'done'
       }
+    },
+    increment() {
+      this.$store.dispatch('increment')
+    },
+    decrement() {
+      this.$store.dispatch('decrement')
+    }
+  },
+  computed: {
+    count () {
+      return this.$store.state.count
     }
   }
 }
