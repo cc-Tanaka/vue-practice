@@ -2,9 +2,9 @@
   <div>
     <h4>{{ $store.state.message }}</h4>
     <!-- preventでpostする事を防ぐ -->
-    <form v-on:submit.prevent="sendTodo">
+    <form>
       <input v-model="todo">
-      <input type="submit" val="追加">
+      <button @click="submit" val="追加"/>
     </form>
     <ul v-for="item in list" :key="item">
       <li v-on:click="doneTodo(item)">
@@ -24,27 +24,26 @@
       <button @click="decrement">-</button>
     </div>
     <div>
-      <h4>VueRouter</h4>
-      <ul>
-        <li>
-          <router-link to="/a">page A</router-link>
-        </li>
-        <li>
-          <router-link to="/b">page B</router-link>
-        </li>
-      </ul>
-      <router-view></router-view>
+      <h4>Ky_Universal</h4>
+      <div>
+        {{ this.result }}
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+// import Feacher from './lib/ky.js'
+// import { hoge, fuga } from './lib/test.js'
+import Feacher from './lib/ky.js'
+
 
 export default {
   data() {
     return {
       todo: "",
-      list: []
+      list: [],
+      result: ""
     }
   },
   methods: {
@@ -67,11 +66,22 @@ export default {
     },
     decrement() {
       this.$store.dispatch('decrement')
+    },
+    submit() {
+      this.sendTodo()
     }
   },
   computed: {
     count () {
       return this.$store.state.count
+    }
+  },
+  async mounted() {
+    const feacher = new Feacher()
+    try {
+      this.result = await feacher.feach()
+    } catch (error) {
+      this.result = error.message
     }
   }
 }
