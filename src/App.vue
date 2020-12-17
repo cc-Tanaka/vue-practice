@@ -23,6 +23,18 @@
       <button @click="increment">+</button>
       <button @click="decrement">-</button>
     </div>
+    <div>
+      <h4>VueRouter</h4>
+      <ul>
+        <li>
+          <router-link to="/a">page A</router-link>
+        </li>
+        <li>
+          <router-link to="/b">page B</router-link>
+        </li>
+      </ul>
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
