@@ -29,6 +29,16 @@
         {{ this.result }}
       </div>
     </div>
+    <div>
+      <h4>POST</h4>
+      <button @click="post_request">POST</button>
+      <div v-if="post_result_status == 200">
+        <p>status: {{ post_result_message }}</p>
+      </div>
+      <div v-else>
+        <p>status: {{ post_result_status }}</p>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -36,6 +46,7 @@
 // import Feacher from './lib/ky.js'
 // import { hoge, fuga } from './lib/test.js'
 import Feacher from './lib/ky.js'
+import Post from './lib/post.js'
 
 
 export default {
@@ -43,7 +54,10 @@ export default {
     return {
       todo: "",
       list: [],
-      result: ""
+      result: "",
+      post_result: "",
+      post_result_status: "",
+      post_result_message: "",
     }
   },
   methods: {
@@ -69,6 +83,17 @@ export default {
     },
     submit() {
       this.sendTodo()
+    },
+    async post_request() {
+      try {
+        const post = new Post()
+        this.post_result = await post.post_test()
+        this.post_result_status = this.post_result["status"]
+        this.post_result_message = "200"
+      } catch(error) {
+        console.log(error.response["status"])
+        this.post_result_message = "400"
+      }
     }
   },
   computed: {
