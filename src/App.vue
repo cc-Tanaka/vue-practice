@@ -1,6 +1,9 @@
 <template>
   <div>
-    <h4>Hello World</h4>
+    <h4>Vue Router</h4>
+    <p><router-link to="/form_01">フォーム画面へ</router-link></p>
+    <div><router-view></router-view></div>
+    <a href="/">トップへ戻る</a>
   </div>
 </template>
 
